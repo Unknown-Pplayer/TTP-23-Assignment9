@@ -21,7 +21,7 @@ function Debit(props) {
 
   return (
     <div>
-      <h1>Debit Page</h1>
+      <h1>Credit Page</h1>
       <p>Your Account Balance: {props.accBalance}</p>
       <form onSubmit={handleSubmit}>
         <label>
