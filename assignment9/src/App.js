@@ -1,4 +1,3 @@
-//import React from "react";
 import React, {useEffect, useState} from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
@@ -9,11 +8,12 @@ import Credit from "./components/Credit"
 function App() {
   const [debitBalance, setDebitBalance] = useState("");
   const [creditBalance, setCreditBalance] = useState("");
-  var accBalance = creditBalance - debitBalance;
-
+  const [accBalance, setAccBalance] = useState("");
   useEffect(() => {
+    const balance = creditBalance - debitBalance;
+    setAccBalance(balance);
     fetchData();
-  }, []);
+  }, [debitBalance, creditBalance]);
   async function fetchData() {
       try {
         const debitResponse = await fetch("https://bank-of-react-b745wfs0u-ajlapid718.vercel.app/debits");
@@ -47,8 +47,8 @@ function App() {
         {/* Routes */}
         <Routes>
           <Route path="/" element={<Home accBalance={accBalance}/>} />
-          <Route path="/Debit/*" element={<Debit accBalance={accBalance}/>} />
-          <Route path="/Credit/*" element={<Credit accBalance={accBalance}/>} />
+          <Route path="/Debit/*" element={<Debit accBalance={accBalance} setAccBalance={setAccBalance} />} />
+          <Route path="/Credit/*" element={<Credit accBalance={accBalance} setAccBalance={setAccBalance} />} />
         </Routes>
 
       </div>
